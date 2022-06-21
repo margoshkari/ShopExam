@@ -1,0 +1,38 @@
+﻿@page
+@model Shop.Pages.CategoryModel
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true">
+
+<div id="login" style="display:none">
+    @if (Request.Cookies["login"] != null)
+    {
+        @Request.Cookies["login"]
+    }
+</div>
+
+<div id="isadd" style="display:none">
+    @Model.isAdd
+</div>
+
+<center> <h1> Caregory </h1> </center>
+<div class="content">
+    <form asp-page="/Category" id="addform" method="post" style="display:none;">
+        <div class="container">
+            <label>Category name: </label>
+            <input type="text" placeholder="Enter Category name" name="categoryname" required minlength="3">
+             <button class="submitbtn" type="submit">Add</button>
+        </div>
+    </form>
+    <form asp-page="/Category" id="deleteform" asp-page-handler="delete" method="post" style="display:none;">
+        <div class="container">
+            <label>Category name: </label>
+            <input type="text" placeholder="Enter Category name" name="categoryname" required minlength="3">
+            <button class="submitbtn" type="submit">Delete</button>
+        </div>
+    </form>
+</div>
+
+<script src="~/js/category.js" asp-append-version="true"></script>

@@ -9,104 +9,53 @@ namespace Shop.Pages
 {
     public class CartModel : PageModel
     {
-        SqlConnection sqlConnection = Connection.GetConnection();
         public string json = string.Empty;
         public List<Product> products = new List<Product>();
         public void OnGet()
         {
             string login = @Request.Cookies["login"];
-            string idUser = string.Empty;
-            if (login != null)
-            {
-                using (SqlCommand cmd = new SqlCommand($"SELECT * FROM [Users] WHERE [Users].[Login] = '{login}'", sqlConnection))
-                {
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            idUser = reader["idUser"].ToString();
-                        }
-                        reader.Close();
-                    }
-                }
-            }
+            string idUser = SqlOperations.GetUserId(login);
+
             if (idUser != string.Empty)
             {
-                using (SqlCommand cmd = new SqlCommand($"SELECT * FROM [Cart] " +
-                $"JOIN [Product] ON [Cart].[idProduct] = [Product].[idProduct] WHERE [Cart].[idUser] = {idUser} ", sqlConnection))
-                {
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            products.Add(new Product(reader["ImageName"].ToString(), reader["ProductName"].ToString(),
-                                int.Parse(reader["Price"].ToString()), reader["Info"].ToString()));
-                            products.Last().Count = int.Parse(reader["Count"].ToString());
-                            products.Last().Price = (int.Parse(reader["Price"].ToString()) * int.Parse(reader["Count"].ToString()));
-                            json = JsonSerializer.Serialize<List<Product>>(products);
-                        }
-                        reader.Close();
-                    }
-                }
+                products = SqlOperations.GetCartProduct(idUser);
+                json = JsonSerializer.Serialize<List<Product>>(products);
             }
         }
         public IActionResult OnPost(int count, string productname, string username)
         {
             string idUser = string.Empty;
             string idProduct = string.Empty;
-            if (username != null && productname != null)
+            if (username != null && productname != null && count > 0)
             {
-                using (SqlCommand cmd = new SqlCommand($"SELECT * FROM [Users] " +
-                    $"JOIN [Product] ON [Product].[idProduct] = [Product].[idProduct] " +
-                    $"WHERE [Users].[Login] = '{username}' AND [Product].[ProductName] = '{productname}'", sqlConnection))
-                {
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            idUser = reader["idUser"].ToString();
-                            idProduct = reader["idProduct"].ToString();
-                        }
-                        reader.Close();
-                    }
-                }
+                idUser = SqlOperations.GetUserId(username);
+                idProduct = SqlOperations.GetProductId(productname);
+            }
+            else
+            {
+                return Redirect("/Index");
             }
             if (idUser != string.Empty && idProduct != string.Empty)
             {
-                using (SqlCommand cmd = new SqlCommand($"INSERT INTO [Cart] VALUES({count},{idProduct}, {idUser})", sqlConnection))
-                {
-                    cmd.ExecuteNonQuery();
-                }
+                SqlOperations.AddCartProduct(count, idProduct, idUser);
             }
+
             return Redirect("/Index");
         }
         public IActionResult OnPostDelete(string productname)
         {
             string idProduct = string.Empty;
-            if(productname != null)
+            if (productname != null)
             {
-                using (SqlCommand cmd = new SqlCommand($"SELECT * FROM [Cart] " +
-                    $"JOIN [Product] ON [Cart].[idProduct] = [Product].[idProduct] " +
-                    $"WHERE [Product].[ProductName] = '{productname}'", sqlConnection))
-                {
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            idProduct = reader["idProduct"].ToString();
-                        }
-                        reader.Close();
-                    }
-                }
+                idProduct = SqlOperations.GetProductId(productname);
             }
             if (idProduct != string.Empty)
             {
-                using (SqlCommand cmd = new SqlCommand($"DELETE FROM [Cart] WHERE [Cart].[idProduct] = {idProduct}", sqlConnection))
-                {
-                    cmd.ExecuteNonQuery();
-                }
+                SqlOperations.DeleteCartProduct(idProduct);
             }
+
             return Redirect("/Cart");
         }
+
     }
 }

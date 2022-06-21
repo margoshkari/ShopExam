@@ -1,29 +1,13 @@
 ﻿var products = JSON.parse(document.getElementById('products').innerHTML);
 var categories = JSON.parse(document.getElementById('categories').innerHTML);
-var popup = document.getElementById("pop-up");
-var image = document.getElementById("image");
-var productname = document.getElementById("name");
-var closebtn = document.getElementById("closebtn");
-var info = document.getElementById("info");
-var price = document.getElementById("price");
-var isLogin = document.getElementById('login').innerHTML;
-var inputprod = document.getElementById('inputprod');
+var categoryinput = document.getElementById('categoryinput');
+var submitbtn = document.getElementById('delbtn');
+var catbtn = document.getElementById('catbtn');
 
 window.onload = funonload;
 function funonload() {
     AddCard();
     AddCategory();
-
-    const elems = document.querySelectorAll('.elem');
-    elems.forEach(elem => {
-        elem.addEventListener('click', event => {
-            PopUp(elem);
-        });
-    });
-
-    closebtn.onclick = function () {
-        popup.style = "visibility: hidden";
-    };
 }
 
 function AddCard() {
@@ -31,19 +15,33 @@ function AddCard() {
         let element = document.createElement("div");
         element.setAttribute('class', `elem`);
 
+        //Картинка товара
         let image = document.createElement("img");
         image.setAttribute('src', `/img/${products[i]["ImageName"]}`);
         image.setAttribute('draggable', `false`);
         element.appendChild(image);
 
+        //Название товара
         let name = document.createElement("h2");
         let text = document.createTextNode(`${products[i]["ProductName"]}`);
         name.appendChild(text);
         element.appendChild(name);
 
-        let container = document.getElementById("content");
+        //Кнопка "удалить"
+        let deletebtn = document.createElement("div");
+        deletebtn.setAttribute('class', `deletebtn`);
+        deletebtn.setAttribute('name', `${products[i]["ProductName"]}`);
+        deletebtn.innerHTML = `Delete`;
+        deletebtn.style = "cursor:pointer; font-size: 20px; border-radius: 5px; background-color:rgb(204, 44, 44, 0.3);width: 100px;";
+        element.appendChild(deletebtn);
+
+        let container = document.getElementById("form-content");
         container.appendChild(element);
     }
+    $('.deletebtn').on('click', function () {
+        inputprod.value = $(this).attr('name');
+        submitbtn.click();
+    });
 }
 
 function AddCategory() {
@@ -65,22 +63,6 @@ function AddCategory() {
     }
     $('.categorybtn').on('click', function () {
         categoryinput.value = $(this).attr('name');
-        submitbtn.click();
+        catbtn.click();
     });
-}
-
-function PopUp(elem) {
-    image.src = elem.children[0].src;
-    productname.innerHTML = elem.children[1].innerHTML;
-    inputprod.value = productname.innerHTML;
-
-    for (var i = 0; i < products.length; i++) {
-        if (image.src.includes(products[i]["ImageName"])) {
-            info.innerHTML = products[i]["Info"];
-            price.innerHTML = products[i]["Price"] + "$";
-            break;
-        }
-    }
-
-    popup.style = "visibility: visible";
 }

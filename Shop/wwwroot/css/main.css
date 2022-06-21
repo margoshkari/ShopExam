@@ -25,28 +25,20 @@ html, body {
     margin-right: 3%;
 }
 
-    #filter > ul > li > form > button {
-        font-size: 25px;
-        text-decoration: none;
-        width: 100%;
-        word-wrap: break-word;
-        background-color: white;
-        text-align: left;
-    }
+ul {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    flex-flow:column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    #filter > ul > li > form {
-        height: 90px;
-        display: flex;
-        align-items: center;
-    }
-
-    #filter > ul > li {
-        list-style: none;
-    }
-
-        #filter > ul > li > form > button:hover {
-            color: rgb(95, 69, 23);
-        }
+#filter > .buttons {
+    display: flex;
+    align-items: center;
+}
 
 .elem {
     background-color: white;

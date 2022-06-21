@@ -6,6 +6,13 @@
 
 <link rel="stylesheet" href="~/css/login.css" asp-append-version="true"> 
 
+<div id="login" style="display:none">
+    @if (Request.Cookies["login"] != null)
+    {
+        @Request.Cookies["login"]
+    }
+</div>
+
 <center> <h1> Register </h1> </center> 
 <div class="content">
      <form asp-page="/Register" method="post">  

@@ -1,0 +1,77 @@
+﻿@page
+@model Shop.Pages.AdminModel
+@{
+    ViewData["Title"] = "Admin";
+}
+<link rel="stylesheet" href="~/css/admin.css" asp-append-version="true">
+
+@if (Request.Cookies["login"] != "admin")
+{
+    <script type="text/javascript">
+        window.location.href = '/Index';
+    </script>
+}
+<div class="title">
+    <h1>Admin panel</h1>
+</div>
+
+<div class="title">
+    <h2>@Model.Title</h2>
+</div>
+
+<div style="display:flex;align-items:center;justify-content:center; margin-bottom: 3%;">
+    <form asp-page="/Products" method="get">
+        <input id="addproduct" type="text" name="isadd" value="add" style="display:none;" />
+        <button class="submitbtn" type="submit" style="border:none;">Add product</button>
+    </form>
+    @*<form asp-page="/Products" method="get">
+        <input id="delproduct" type="text" name="isadd" value="delete" style="display:none;" />
+        <button class="submitbtn" type="submit" style="border:none;margin-left: 2%;">Delete product</button>
+    </form>*@
+</div>
+
+
+<div id="products" style="display:none">
+    @Model.jsonprod
+</div>
+
+
+<div id="categories" style="display:none">
+    @Model.jsoncat
+</div>
+
+<div id="login" style="display:none">
+    @if (Request.Cookies["login"] != null)
+    {
+        @Request.Cookies["login"]
+    }
+</div>
+
+<div id="page">
+    <div id="filter">
+        <div class="buttons">
+            <form asp-page="/Category" method="get">
+                <input id="addcategory" type="text" name="isadd" value="add" style="display:none;" />
+                <button class="submitbtn" type="submit" style="border:none;">Add category</button>
+            </form>
+            <form asp-page="/Category" method="get">
+                <input id="delcategory" type="text" name="isadd" value="delete" style="display:none;" />
+                <button class="submitbtn" type="submit" style="border:none;margin-left: 2%;">Delete category</button>
+            </form>
+        </div>
+        <form asp-page="/Admin" method="post">
+            <input id="categoryinput" type="text" name="category" value="" style="display:none;" />
+            <ul id="categoryid">
+            </ul>
+            <button id="catbtn" type="submit" style="display:none;"></button>
+        </form>
+    </div>
+    <div id="content">
+        <form id="form-content" asp-page="/Products" asp-page-handler="delete" method="post">
+            <input id="inputprod" type="text" name="productname" value="" style="display:none;" />
+            <button id="delbtn" type="submit" style="display:none;"></button>
+        </form>
+    </div>
+</div>
+
+<script src="~/js/admin.js" asp-append-version="true"></script>

@@ -1,0 +1,45 @@
+﻿@page
+@model Shop.Pages.ProductsModel
+@{
+    ViewData["Title"] = "Product";
+}
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true">
+
+<div id="login" style="display:none">
+    @if (Request.Cookies["login"] != null)
+    {
+        @Request.Cookies["login"]
+    }
+</div>
+
+<div id="isadd" style="display:none">
+    @Model.isAdd
+</div>
+
+<center> <h1> Product </h1> </center>
+<div class="content">
+    <form asp-page="/Products" id="addform" method="post" style="display:none;">
+        <div class="container">
+            <label>Product name: </label>
+            <input type="text" placeholder="Enter Product name" name="productname" required minlength="3">
+            <label>Price: </label>
+            <input type="number" placeholder="Enter Price" name="price" required min="1">
+            <label>Image name: </label>
+            <input type="text" placeholder="Enter Image Name" name="imagename" required minlength="5">
+            <label>Info: </label>
+            <input type="text" placeholder="Enter Info" name="info" required minlength="5">
+            <label>Category Name: </label>
+            <input type="text" placeholder="Enter Category Name" name="categoryname" required minlength="3">
+             <button class="submitbtn" type="submit">Add</button>
+        </div>
+    </form>
+    <form asp-page="/Products" id="deleteform" asp-page-handler="delete" method="post" style="display:none;">
+        <div class="container">
+            <label>Product name: </label>
+            <input type="text" placeholder="Enter Product name" name="productname" required minlength="3">
+            <button class="submitbtn" type="submit">Delete</button>
+        </div>
+    </form>
+</div>
+
+<script src="~/js/category.js" asp-append-version="true"></script>

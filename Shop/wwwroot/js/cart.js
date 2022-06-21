@@ -1,5 +1,4 @@
 ﻿var tmp = JSON.parse(document.getElementById('tmp').innerHTML);
-var isLogin = document.getElementById('login').innerHTML;
 var inputprod = document.getElementById('inputprod');
 var submitbtn = document.getElementById('submitbtn');
 
@@ -32,17 +31,11 @@ function funonload() {
         deletebtn.setAttribute('class', `deletebtn`);
         deletebtn.setAttribute('name', `${tmp[i]["ProductName"]}`);
         deletebtn.innerHTML = `Delete`;
-        deletebtn.style = "cursor:pointer";
+        deletebtn.style = "cursor:pointer; font-size: 15px;";
         element.appendChild(deletebtn);
 
         let container = document.getElementById("form-content");
         container.appendChild(element);
-    }
-    if (isLogin != "\n") {
-        document.getElementById("loginbtn").style = "display: none";
-    }
-    else {
-        document.getElementById("cartbtn").style = "display: none";
     }
 
     $('.deletebtn').on('click', function () {
