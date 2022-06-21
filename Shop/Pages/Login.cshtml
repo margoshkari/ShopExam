@@ -1,0 +1,21 @@
+﻿@page
+@model Shop.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true">
+
+<center> <h1> Login </h1> </center>
+<div class="content">
+    <form asp-page="/Login" method="post">
+        <div class="container">
+            <label>Username : </label>
+            <input type="text" placeholder="Enter Username" name="username" required minlength="5">
+            <label>Password : </label>
+            <input type="password" placeholder="Enter Password" name="password" required minlength="5">
+            <button class="submitbtn" type="submit">Login</button>
+            <a asp-area="" asp-page="/Register">Register</a>
+        </div>
+    </form>
+</div>

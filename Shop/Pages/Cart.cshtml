@@ -1,0 +1,36 @@
+﻿ @page
+@model Shop.Pages.CartModel
+@{
+    ViewData["Title"] = "Cart";
+}
+<link rel="stylesheet" href="~/css/cart.css" asp-append-version="true">
+
+<div class="title">
+    <h1>Cart</h1>
+</div>
+
+<div id="tmp" style="display:none">
+    @Model.json
+</div>
+
+<div id="login" style="display:none">
+    @if (Request.Cookies["login"] != null)
+    {
+        @Request.Cookies["login"]
+    }
+</div>
+
+<div id="page">
+    <div id="content">
+        <form id="form-content" asp-page="/Cart" asp-page-handler="delete" method="post">
+            <input id="inputprod" type="text" name="productname" value="" style="display:none;"/>
+            <button id="submitbtn" type="submit" style="display:none;"></button>
+        </form>
+    </div>
+</div>
+
+
+<script src="~/js/cart.js" asp-append-version="true"></script>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

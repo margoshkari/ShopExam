@@ -1,0 +1,116 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<link rel="stylesheet" href="~/css/main.css" asp-append-version="true">
+
+<div class="title">
+    <h1>@Model.Title</h1>
+</div>
+
+<div id="tmp" style="display:none">
+    @Model.json
+</div>
+
+<div id="login" style="display:none">
+    @if (Request.Cookies["login"] != null)
+    {
+        @Request.Cookies["login"]
+    }
+</div>
+
+<div id="page">
+    <div id="filter">
+        <ul>
+            <li>
+                <form asp-page="/Index" method="post">
+                    <input type="text" name="category" value="1" style="display:none;" />
+                    <button type="submit" style="border:none;">Burgers</button>
+                </form>
+            </li>
+            <li>
+                <form asp-page="/Index" method="post">
+                    <input type="text" name="category" value="2" style="display:none;" />
+                    <button type="submit" style="border:none;">Chicken McNuggets & Selects®</button>
+                </form>
+
+            </li>
+            <li>
+                <form asp-page="/Index" method="post">
+                    <input type="text" name="category" value="3" style="display:none;" />
+                    <button type="submit" style="border:none;">Wraps & Salads</button>
+                </form>
+            </li>
+            <li>
+                <form asp-page="/Index" method="post">
+                    <input type="text" name="category" value="4" style="display:none;" />
+                    <button type="submit" style="border:none;">McCafé</button>
+                </form>
+            </li>
+            <li>
+                <form asp-page="/Index" method="post">
+                    <input type="text" name="category" value="5" style="display:none;" />
+                    <button type="submit" style="border:none;">Breakfast Menu</button>
+                </form>
+            </li>
+            <li>
+                <form asp-page="/Index" method="post">
+                    <input type="text" name="category" value="6" style="display:none;" />
+                    <button type="submit" style="border:none;">Vegetarian</button>
+                </form>
+            </li>
+            <li>
+                <form asp-page="/Index" method="post">
+                    <input type="text" name="category" value="7" style="display:none;" />
+                    <button type="submit" style="border:none;">Vegan</button>
+                </form>
+            </li>
+            <li>
+                <form asp-page="/Index" method="post">
+                    <input type="text" name="category" value="8" style="display:none;" />
+                    <button type="submit" style="border:none;">Saver Menu</button>
+                </form>
+            </li>
+            <li>
+                <form asp-page="/Index" method="post">
+                    <input type="text" name="category" value="9" style="display:none;" />
+                    <button type="submit" style="border:none;">Fries & Sides</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+    <div id="content">
+    </div>
+</div>
+
+<form asp-page="/Cart" method="post">
+    <div id="pop-up">
+    <div id="popup-content">
+        <div id="first">
+            <img id="image" />
+        </div>
+        <div id="combine">
+            <div id="second">
+                <ion-icon id="closebtn" name="close-outline"></ion-icon>
+                <h2 id="name"></h2>
+                <h3 id="price"></h3>
+                <p id="info"></p>
+            </div>
+            <div id="third">
+                <input type="number" value="1" min=1 max=20 name="count"/>
+                <input id="inputprod" type="text" name="productname" value="" style="display:none;"/>
+                <input type="text" name="username" value="@Request.Cookies["login"]" style="display:none;"/>
+                <button type="submit"><ion-icon id="cart" name="cart-outline"></ion-icon></button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+
+<script src="~/js/main.js" asp-append-version="true"></script>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
