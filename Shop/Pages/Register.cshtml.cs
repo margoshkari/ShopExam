@@ -5,13 +5,21 @@ namespace Shop.Pages
 {
     public class RegisterModel : PageModel
     {
+        public string login { get; set; } = "";
         public void OnGet()
         {
         }
-        public IActionResult OnPost(string username, string password, string email)
+        public void OnPost(string username, string password, string email)
         {
-            SqlOperations.UserRegister(username, password, email);
-            return Redirect("/Login");
+            if (!SqlOperations.isUserExist(username))
+            {
+                SqlOperations.UserRegister(username, password, email);
+                login = "notexist";
+            }
+            else
+            {
+                login = "exist";
+            }
         }
     }
 }

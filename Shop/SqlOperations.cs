@@ -420,5 +420,29 @@ namespace Shop
 
             return false;
         }
+
+        //Существует ли пользователь
+        public static bool isUserExist(string login)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand($"SELECT * FROM [Users] " +
+                          $"WHERE [Users].[Login] = '{login}'", sqlConnection))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return true;
+                        }
+                        reader.Close();
+                    }
+                }
+
+            }
+            catch (System.Exception) { }
+
+            return false;
+        }
     }
 }

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Register";
 }
 
-<link rel="stylesheet" href="~/css/login.css" asp-append-version="true"> 
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true">
 
 <div id="login" style="display:none">
     @if (Request.Cookies["login"] != null)
@@ -13,17 +13,23 @@
     }
 </div>
 
-<center> <h1> Register </h1> </center> 
+<input type="text" id="username" value=@Model.login required style="display:none;">
+
+<center> <h1> Register </h1> </center>
 <div class="content">
-     <form asp-page="/Register" method="post">  
-        <div class="container">   
-            <label>Username : </label>   
-            <input type="text" placeholder="Enter Username" name="username" required minlength="5" maxlength="15">  
-            <label>Password : </label>   
-            <input type="password" placeholder="Enter Password" name="password" required minlength="5">  
-            <label>Email : </label>   
-            <input type="email" placeholder="Enter Email" name="email" required>  
+    <form asp-page="/Register" method="post" id="userform">
+        <div class="container">
+            <label>Username : </label>
+            <input type="text" placeholder="Enter Username" name="username" required minlength="5" maxlength="15">
+            <label>Password : </label>
+            <input type="password" placeholder="Enter Password" name="password" required minlength="5">
+            <label>Email : </label>
+            <input type="email" placeholder="Enter Email" name="email" required>
             <button class="registerbtn" type="submit">Register</button>
-        </div>   
-    </form>   
+        </div>
+    </form>
 </div>
+
+
+<script src="~/js/register.js" asp-append-version="true"></script>
+
