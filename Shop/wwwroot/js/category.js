@@ -5,7 +5,7 @@ var categorydelete = document.getElementById("categorydelete").value;
 window.addEventListener('load', start, false);
 function start() {
     if (isAdd != "required") {
-        if (isAdd == "True") {
+        if (isAdd == "add") {
             document.getElementById("addform").style = "display:unset;";
         }
         else {

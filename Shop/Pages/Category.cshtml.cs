@@ -1,24 +1,22 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Data.SqlClient;
 
 namespace Shop.Pages
 {
     public class CategoryModel : PageModel
     {
-        public bool isAdd = true;
+        public string isAdd = "add";
         public string categoryadd { get; set; } = "";
         public string categorydelete { get; set; } = "";
         public void OnGet(string isadd)
         {
             if (isadd == "add")
-                isAdd = true;
+                isAdd = "add";
             else
-                isAdd = false;
+                isAdd = "delete";
         }
         public void OnPost(string categoryname)
         {
-            if (isAdd)
+            if (isAdd == "delete")
             {
                 if (!SqlOperations.isCategoryExist(categoryname))
                 {

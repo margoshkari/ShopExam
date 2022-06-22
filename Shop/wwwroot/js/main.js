@@ -22,6 +22,7 @@ function funonload() {
     });
 
     closebtn.onclick = function () {
+        document.body.style.overflowY = 'visible';
         popup.style = "visibility: hidden";
     };
 }
@@ -70,6 +71,7 @@ function AddCategory() {
 }
 
 function PopUp(elem) {
+    document.body.style.overflowY = 'hidden';
     image.src = elem.children[0].src;
     productname.innerHTML = elem.children[1].innerHTML;
     inputprod.value = productname.innerHTML;
