@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
 using System.Text.Json;
 
 namespace Shop.Pages

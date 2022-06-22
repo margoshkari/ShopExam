@@ -38,7 +38,7 @@
     </div>
 </div>
 
-<form asp-page="/Cart" method="post">
+<form asp-page="/Cart" method="post" name="countform" onsubmit="return validateForm()">
     <div id="pop-up">
         <div id="popup-content">
             <div id="first">
@@ -56,7 +56,7 @@
                     <input type="text" name="username" value="@Request.Cookies["login"]" style="display:none;" />
                     @if (Request.Cookies["login"] != null)
                     {
-                        <input type="number" value="1" min=1 max=20 name="count" />
+                        <input type="number" value="1" min=1 max=20 name="count"/>
                         <button type="submit"><ion-icon id="cart" name="cart-outline"></ion-icon></button>
                     }
                 </div>
@@ -64,6 +64,15 @@
         </div>
     </div>
 </form>
+<script>
+function validateForm() {
+  let x = document.forms["countform"]["count"].value;
+  if (x == "") {
+    alert("Count be filled out");
+    return false;
+  }
+}
+</script>
 
 <script src="~/js/main.js" asp-append-version="true"></script>
 
