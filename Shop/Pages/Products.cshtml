@@ -12,13 +12,11 @@
     }
 </div>
 
-<div id="isadd" style="display:none">
-    @Model.isAdd
-</div>
+<input type="text" id="category" value=@Model.category required style="display:none;">
 
 <center> <h1> Product </h1> </center>
 <div class="content">
-    <form asp-page="/Products" id="addform" method="post" style="display:none;">
+    <form asp-page="/Products" id="addform" method="post">
         <div class="container">
             <label>Product name: </label>
             <input type="text" placeholder="Enter Product name" name="productname" required minlength="3">
@@ -35,4 +33,4 @@
     </form>
 </div>
 
-<script src="~/js/category.js" asp-append-version="true"></script>
+<script src="~/js/product.js" asp-append-version="true"></script>

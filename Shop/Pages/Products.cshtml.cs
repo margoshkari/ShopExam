@@ -5,40 +5,36 @@ namespace Shop.Pages
 {
     public class ProductsModel : PageModel
     {
-        public bool isAdd = true;
+        public string category { get; set; } = "";
         public void OnGet(string isadd)
         {
-            if (isadd == "add")
-                isAdd = true;
-            else
-                isAdd = false;
         }
-        public IActionResult OnPost(string productname, int price, string imagename, string info, string categoryname)
+        public void OnPost(string productname, int price, string imagename, string info, string categoryname)
         {
             string idCategory = string.Empty;
-            if (isAdd)
+            idCategory = SqlOperations.GetCategoryId(categoryname);
+            if (idCategory != string.Empty)
             {
-                idCategory = SqlOperations.GetCategoryId(categoryname);
-                if (idCategory != string.Empty)
-                {
-                    if (SqlOperations.AddProduct(productname, price, imagename, info, idCategory))
-                        return Redirect("/Admin");
-                }
+                if (SqlOperations.AddProduct(productname, price, imagename, info, idCategory))
+                    category = "exist";
             }
-            return Redirect("/Products");
+            else
+            {
+                category = "notexist";
+            }
         }
         public IActionResult OnPostDelete(string productname)
         {
-                string idProduct = string.Empty;
-                if (productname != null)
-                {
-                    idProduct = SqlOperations.GetProductId(productname);
-                }
-                if (idProduct != string.Empty)
-                {
-                    if (SqlOperations.DeleteProduct(idProduct))
-                        return Redirect("/Admin");
-                }
+            string idProduct = string.Empty;
+            if (productname != null)
+            {
+                idProduct = SqlOperations.GetProductId(productname);
+            }
+            if (idProduct != string.Empty)
+            {
+                if (SqlOperations.DeleteProduct(idProduct))
+                    return Redirect("/Admin");
+            }
 
             return Redirect("/Products");
         }
