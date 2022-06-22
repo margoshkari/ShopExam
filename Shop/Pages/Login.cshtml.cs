@@ -5,14 +5,16 @@ namespace Shop.Pages
 {
     public class LoginModel : PageModel
     {
-        public IActionResult OnPost(string username, string password)
+        public string login { get; set; } = "";
+        public void OnPost(string username, string password)
         {
             if (SqlOperations.UserLogin(username, password))
             {
                 Response.Cookies.Append("login", username);
-                return Redirect("/Index");
+                login = "correct";
             }
-            return Redirect("/Login");
+            else
+                login = "uncorrect";
         }
     }
 }

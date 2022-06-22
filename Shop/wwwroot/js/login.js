@@ -1,8 +1,6 @@
 ﻿var isLogin = document.getElementById('login').innerHTML;
-//var username = document.getElementById("username").value;
 
 window.addEventListener('load', start, false);
-//window.addEventListener('validateForm', start, false);
 function start() {
     if (isLogin != "\n") {
         if (isLogin != "\nadmin") {
@@ -15,17 +13,5 @@ function start() {
     }
     else {
         document.getElementById("loginbtn").style = "display:unset";
-    }
-}
-
-function validateForm() {
-    if (username != "required") {
-        if (username == "exist") {
-            alert("Username exist");
-            return false;
-        }
-        else if (username == "notexist") {
-            window.location.href = '/Login';
-        }
     }
 }

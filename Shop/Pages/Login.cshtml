@@ -12,6 +12,7 @@
         @Request.Cookies["login"]
     }
 </div>
+<input type="text" id="username" value=@Model.login required style="display:none;">
 
 <center> <h1> Login </h1> </center>
 <div class="content">
@@ -27,3 +28,4 @@
     </form>
 </div>
 
+<script src="~/js/loginvalid.js" asp-append-version="true"></script>
