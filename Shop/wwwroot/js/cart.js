@@ -31,7 +31,7 @@ function funonload() {
         deletebtn.setAttribute('class', `deletebtn`);
         deletebtn.setAttribute('name', `${tmp[i]["ProductName"]}`);
         deletebtn.innerHTML = `Delete`;
-        deletebtn.style = "cursor:pointer; font-size: 15px;";
+        deletebtn.style = "cursor:pointer; font-size: 20px; border-radius: 5px; background-color:rgb(204, 44, 44, 0.3);width: 100px;";
         element.appendChild(deletebtn);
 
         let container = document.getElementById("form-content");

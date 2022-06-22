@@ -7,6 +7,8 @@ namespace Shop.Pages
     public class CategoryModel : PageModel
     {
         public bool isAdd = true;
+        public string categoryadd { get; set; } = "";
+        public string categorydelete { get; set; } = "";
         public void OnGet(string isadd)
         {
             if (isadd == "add")
@@ -14,20 +16,30 @@ namespace Shop.Pages
             else
                 isAdd = false;
         }
-        public IActionResult OnPost(string categoryname)
+        public void OnPost(string categoryname)
         {
             if (isAdd)
             {
-                if (SqlOperations.AddCategory(categoryname))
-                    return Redirect("/Admin");
+                if (!SqlOperations.isCategoryExist(categoryname))
+                {
+                    categoryadd = "notexist";
+                    SqlOperations.AddCategory(categoryname);
+                }
+                else
+                    categoryadd = "exist";
             }
-            return Redirect("/Category");
         }
-        public IActionResult OnPostDelete(string categoryname)
+        public void OnPostDelete(string categoryname)
         {
-            if (SqlOperations.DeleteCategory(categoryname))
-                return Redirect("/Admin");
-            return Redirect("/Category");
+            if (!SqlOperations.isCategoryExist(categoryname))
+            {
+                categorydelete = "notexist";
+            }
+            else
+            {
+                SqlOperations.DeleteCategory(categoryname);
+                categorydelete = "exist";
+            }
         }
     }
 }
