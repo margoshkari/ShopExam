@@ -16,7 +16,7 @@ namespace Shop.Pages
         }
         public void OnPost(string categoryname)
         {
-            if (isAdd == "delete")
+            if (isAdd == "add")
             {
                 if (!SqlOperations.isCategoryExist(categoryname))
                 {
