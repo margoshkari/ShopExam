@@ -516,5 +516,22 @@ namespace Shop
             catch (System.Exception){}
             return products;
         }
+
+
+        //Удаление всех продуктов в категории
+        public static bool DeleteAllProductInCategory(string categoryname)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand($"DELETE [Product] FROM [Product] JOIN [Category] ON " +
+                    $"[Product].[idCategory] = [Category].[idCategory] WHERE [Category].[CategoryName] = '{categoryname}'", sqlConnection))
+                {
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+            }
+            catch (System.Exception) { }
+            return false;
+        }
     }
 }

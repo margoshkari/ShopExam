@@ -35,6 +35,7 @@ namespace Shop.Pages
             }
             else
             {
+                SqlOperations.DeleteAllProductInCategory(categoryname);
                 SqlOperations.DeleteCategory(categoryname);
                 categorydelete = "exist";
             }
