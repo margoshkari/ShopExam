@@ -444,5 +444,28 @@ namespace Shop
 
             return false;
         }
+        //Существует ли почта
+        public static bool isEmailExist(string email)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand($"SELECT * FROM [Users] " +
+                          $"WHERE [Users].[Email] = '{email}'", sqlConnection))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return true;
+                        }
+                        reader.Close();
+                    }
+                }
+
+            }
+            catch (System.Exception) { }
+
+            return false;
+        }
     }
 }
