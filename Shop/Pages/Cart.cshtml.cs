@@ -47,16 +47,32 @@ namespace Shop.Pages
 
             return Redirect("/Index");
         }
-        public IActionResult OnPostDelete(string productname)
+        public IActionResult OnPostDelete(string productname, string username)
         {
+            string idUser = string.Empty;
             string idProduct = string.Empty;
-            if (productname != null)
+            if (username != null && productname != null)
             {
+                idUser = SqlOperations.GetUserId(username);
                 idProduct = SqlOperations.GetProductId(productname);
             }
-            if (idProduct != string.Empty)
+            if (idProduct != string.Empty && idUser != string.Empty)
             {
-                SqlOperations.DeleteCartProduct(idProduct);
+                SqlOperations.DeleteCartProduct(idProduct, idUser);
+            }
+
+            return Redirect("/Cart");
+        }
+        public IActionResult OnPostView(string username)
+        {
+            string idUser = string.Empty; 
+            if (username != null)
+            {
+                idUser = SqlOperations.GetUserId(username);
+            }
+            if (idUser != string.Empty)
+            {
+                SqlOperations.DeleteAllCartProduct(idUser);
             }
 
             return Redirect("/Cart");

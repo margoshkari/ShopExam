@@ -9,6 +9,7 @@
     <h1>Cart</h1>
 </div>
 
+
 <div id="tmp" style="display:none">
     @Model.json
 </div>
@@ -19,11 +20,19 @@
         @Request.Cookies["login"]
     }
 </div>
+<div style="display:flex;align-items:center;justify-content:center; margin-bottom: 3%;">
+<form asp-page="/Cart" asp-page-handler="view" method="post">
+            <input  type="text" name="productname" value="" style="display:none;"/>
+             <input type="text" name="username" value="@Request.Cookies["login"]" style="display:none;" />
+            <button class="clearbtn" type="submit">Clear All</button>
+        </form>
+        </div>
 
 <div id="page">
     <div id="content">
         <form id="form-content" asp-page="/Cart" asp-page-handler="delete" method="post">
             <input id="inputprod" type="text" name="productname" value="" style="display:none;"/>
+             <input type="text" name="username" value="@Request.Cookies["login"]" style="display:none;" />
             <button id="submitbtn" type="submit" style="display:none;"></button>
         </form>
     </div>

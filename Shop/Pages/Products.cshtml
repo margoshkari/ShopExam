@@ -19,15 +19,15 @@
     <form asp-page="/Products" id="addform" method="post">
         <div class="container">
             <label>Product name: </label>
-            <input type="text" placeholder="Enter Product name" name="productname" required minlength="3">
+            <input type="text" placeholder="Enter Product name" name="productname" required minlength="3" maxlength="40">
             <label>Price: </label>
-            <input type="number" placeholder="Enter Price" name="price" required min="1">
+            <input type="number" placeholder="Enter Price" name="price" required min="1" max="500">
             <label>Image name: </label>
-            <input type="text" placeholder="Enter Image Name" name="imagename" required minlength="5">
+            <input type="text" placeholder="Enter Image Name" name="imagename" required minlength="5" maxlength="50">
             <label>Info: </label>
-            <input type="text" placeholder="Enter Info" name="info" required minlength="5">
+            <input type="text" placeholder="Enter Info" name="info" required minlength="5" maxlength="200">
             <label>Category Name: </label>
-            <input type="text" placeholder="Enter Category Name" name="categoryname" required minlength="3">
+            <input type="text" placeholder="Enter Category Name" name="categoryname" required minlength="3" maxlength="40">
              <button class="submitbtn" type="submit">Add</button>
         </div>
     </form>

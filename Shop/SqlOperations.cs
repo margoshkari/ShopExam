@@ -239,11 +239,12 @@ namespace Shop
         }
 
         //Удаление продуктов из корзины
-        public static bool DeleteCartProduct(string idProduct)
+        public static bool DeleteCartProduct(string idProduct, string idUser)
         {
             try
             {
-                using (SqlCommand cmd = new SqlCommand($"DELETE FROM [Cart] WHERE [Cart].[idProduct] = {idProduct}", sqlConnection))
+                using (SqlCommand cmd = new SqlCommand($"DELETE [Cart] FROM [Cart] JOIN [Users] ON [Cart].[idUser] = [Users].[idUser]" +
+                    $"WHERE [Cart].[idProduct] = {idProduct} AND [Cart].[idUser] = {idUser}", sqlConnection))
                 {
                     cmd.ExecuteNonQuery();
                 }
@@ -532,6 +533,24 @@ namespace Shop
             }
             catch (System.Exception) { }
             return false;
+        }
+
+        //Удаление всех продуктов из корзины
+        public static bool DeleteAllCartProduct(string idUser)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand($"DELETE [Cart] FROM [Cart] JOIN [Users] ON [Cart].[idUser] = [Users].[idUser]" +
+                    $"WHERE [Cart].[idUser] = {idUser}", sqlConnection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
