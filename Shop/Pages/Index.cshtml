@@ -52,10 +52,13 @@
                     <p id="info"></p>
                 </div>
                 <div id="third">
-                    <input type="number" value="1" min=1 max=20 name="count" />
                     <input id="inputprod" type="text" name="productname" value="" style="display:none;" />
                     <input type="text" name="username" value="@Request.Cookies["login"]" style="display:none;" />
-                    <button type="submit"><ion-icon id="cart" name="cart-outline"></ion-icon></button>
+                    @if (Request.Cookies["login"] != null)
+                    {
+                        <input type="number" value="1" min=1 max=20 name="count" />
+                        <button type="submit"><ion-icon id="cart" name="cart-outline"></ion-icon></button>
+                    }
                 </div>
             </div>
         </div>

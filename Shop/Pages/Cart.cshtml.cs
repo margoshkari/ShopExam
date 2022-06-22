@@ -37,7 +37,14 @@ namespace Shop.Pages
             }
             if (idUser != string.Empty && idProduct != string.Empty)
             {
-                SqlOperations.AddCartProduct(count, idProduct, idUser);
+               
+                if (SqlOperations.isProductExist(idProduct, idUser))
+                {
+                    count += SqlOperations.ProductCount(idProduct, idUser);
+                    SqlOperations.UpdateProduct(idProduct, idUser, count);
+                }
+                else
+                    SqlOperations.AddCartProduct(count, idProduct, idUser);
             }
 
             return Redirect("/Index");

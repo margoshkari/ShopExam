@@ -86,7 +86,7 @@ namespace Shop
             {
                 return false;
             }
-            
+
             return false;
         }
 
@@ -105,7 +105,7 @@ namespace Shop
             {
                 return false;
             }
-           
+
             return true;
         }
 
@@ -217,7 +217,7 @@ namespace Shop
                     }
                 }
             }
-            catch (System.Exception){}
+            catch (System.Exception) { }
             return idProduct;
         }
 
@@ -346,6 +346,78 @@ namespace Shop
                 }
             }
             catch (System.Exception) { }
+            return false;
+        }
+
+        //Существует ли такой продукт в корзине
+        public static bool isProductExist(string idProduct, string idUser)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand($"SELECT * FROM [Cart] " +
+                          $"WHERE [Cart].[idProduct] = '{idProduct}' AND [Cart].[idUser] = {idUser}", sqlConnection))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return true;
+                        }
+                        reader.Close();
+                    }
+                }
+
+            }
+            catch (System.Exception) { }
+
+            return false;
+        }
+        //Кол-во продукта в корзине
+        public static int ProductCount(string idProduct, string idUser)
+        {
+            int count = 0;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand($"SELECT * FROM [Cart] " +
+                          $"WHERE [Cart].[idProduct] = '{idProduct}' AND [Cart].[idUser] = {idUser}", sqlConnection))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return count = int.Parse(reader["Count"].ToString());
+                        }
+                        reader.Close();
+                    }
+                }
+
+            }
+            catch (System.Exception) { }
+
+            return count;
+        }
+
+        //Обновление продукта в корзине
+        public static bool UpdateProduct(string idProduct, string idUser, int count)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand($"UPDATE [Cart] " +
+                                      $"SET [Cart].[Count] = {count} WHERE [Cart].[idProduct] = {idProduct}" +
+                                      $"AND [Cart].[idUser] = {idUser}", sqlConnection))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return true;
+                        }
+                        reader.Close();
+                    }
+                }
+            }
+            catch (System.Exception) { }
+
             return false;
         }
     }
