@@ -17,12 +17,18 @@ html, body {
     justify-content: center;
     align-items: start;
 }
+#filter-content {
+    flex-flow: column;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    margin-right: 3%;
+}
 
 #filter {
-    width: 250px;
+    width: 280px;
     border-radius: 7px;
     border: 1px solid black;
-    margin-right: 3%;
 }
 
 ul {
@@ -155,3 +161,29 @@ ul {
     margin-right: 1%;
     margin-bottom: 2%;
 }
+#productinput {
+    margin: 0;
+    padding: 12px 20px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 15px;
+}
+#searchbtn {
+    margin:0;
+    padding:0;
+    border-radius: 5px;
+    border: none;
+    width: 50px;
+    height: 40px;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+    background-image: url("../img/search-outline.svg");
+    background-repeat: no-repeat;
+    background-position:center;
+    color: transparent;
+}
+    #searchbtn:hover {
+        background-color: rgb(195, 195, 195)
+    }

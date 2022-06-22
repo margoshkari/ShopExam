@@ -491,5 +491,30 @@ namespace Shop
 
             return false;
         }
+
+        //Выборка продуктов по названию
+        public static List<Product> SelectExistProducts(string productname)
+        {
+            List<Product> products = new List<Product>();
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand($"SELECT * FROM [Product] JOIN [Category] ON " +
+                $"[Product].[idCategory] = [Category].[idCategory] WHERE [Product].[ProductName] = '{productname}'", sqlConnection))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            products.Add(new Product(reader["ImageName"].ToString(), reader["ProductName"].ToString(),
+                                int.Parse(reader["Price"].ToString()), reader["Info"].ToString()));
+                            Title = reader["CategoryName"].ToString();
+                        }
+                        reader.Close();
+                    }
+                }
+            }
+            catch (System.Exception){}
+            return products;
+        }
     }
 }

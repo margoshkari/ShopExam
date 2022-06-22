@@ -30,5 +30,14 @@ namespace Shop.Pages
             categories = SqlOperations.GetCategory();
             jsoncat = JsonSerializer.Serialize<List<Category>>(categories);
         }
+        public void OnPostView(string searchproduct)
+        {
+            products = SqlOperations.SelectExistProducts(searchproduct);
+            jsonprod = JsonSerializer.Serialize<List<Product>>(products);
+            Title = SqlOperations.Title;
+
+            categories = SqlOperations.GetCategory();
+            jsoncat = JsonSerializer.Serialize<List<Category>>(categories);
+        }
     }
 }
