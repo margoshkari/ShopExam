@@ -32,9 +32,17 @@ namespace Shop.Pages
         }
         public void OnPostView(string searchproduct)
         {
+            List<Product> searchproducts = new List<Product>();
             products = SqlOperations.SelectExistProducts(searchproduct);
-            jsonprod = JsonSerializer.Serialize<List<Product>>(products);
-            Title = SqlOperations.Title;
+            foreach (var item in products)
+            {
+                if(item.ProductName.ToLower().Contains(searchproduct.ToLower()))
+                {
+                    searchproducts.Add(item);
+                }
+            }
+            jsonprod = JsonSerializer.Serialize<List<Product>>(searchproducts);
+            Title = "Search Result:";
 
             categories = SqlOperations.GetCategory();
             jsoncat = JsonSerializer.Serialize<List<Category>>(categories);

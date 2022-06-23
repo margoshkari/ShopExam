@@ -499,8 +499,7 @@ namespace Shop
             List<Product> products = new List<Product>();
             try
             {
-                using (SqlCommand cmd = new SqlCommand($"SELECT * FROM [Product] JOIN [Category] ON " +
-                $"[Product].[idCategory] = [Category].[idCategory] WHERE [Product].[ProductName] = '{productname}'", sqlConnection))
+                using (SqlCommand cmd = new SqlCommand($"SELECT * FROM [Product]", sqlConnection))
                 {
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -508,7 +507,6 @@ namespace Shop
                         {
                             products.Add(new Product(reader["ImageName"].ToString(), reader["ProductName"].ToString(),
                                 int.Parse(reader["Price"].ToString()), reader["Info"].ToString()));
-                            Title = reader["CategoryName"].ToString();
                         }
                         reader.Close();
                     }
